@@ -12,7 +12,7 @@ export const certifications: Certification[] = [
   {
     id: 1,
     title: "Desarrollo Backend",
-    issuer: "Teclab",
+    issuer: "Curso Udemy",
     date: "2023",
     description: "Formación completa en desarrollo web frontend y backend, bases de datos y arquitectura de aplicaciones.",
     skills: ["React", "Node.js", "SQL", "APIs REST"],
