@@ -22,7 +22,7 @@ const TechStack = () => {
     { name: "MySQL", icon: SiMysql, color: "text-blue-400" },
     { name: "Python", icon: SiPython, color: "text-yellow-400" },
     { name: "Power BI", icon: BarChart3, color: "text-yellow-500" },
-    { name: "n8n", icon: Workflow, color: "text-orange-400" },
+    { name: "n8n", icon: Workflow, color: "text-gray-300" },
   ];
 
   // Triplicate technologies for seamless infinite loop

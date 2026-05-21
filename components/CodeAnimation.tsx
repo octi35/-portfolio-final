@@ -26,13 +26,13 @@ const CodeAnimation = () => {
     const columns = Math.floor(canvas.width / fontSize);
     const drops: number[] = Array(columns).fill(1);
 
-    // Orange color palette - different shades
+    // Monochrome palette - white/gray shades
     const colors = [
-      "rgba(251, 146, 60, 0.9)",   // orange-400
-      "rgba(249, 115, 22, 0.85)",  // orange-500
-      "rgba(234, 88, 12, 0.9)",    // orange-600
-      "rgba(253, 186, 116, 0.8)",  // orange-300
-      "rgba(251, 146, 60, 0.85)",  // orange-400
+      "rgba(255, 255, 255, 0.9)",
+      "rgba(229, 229, 229, 0.85)",
+      "rgba(163, 163, 163, 0.9)",
+      "rgba(212, 212, 212, 0.8)",
+      "rgba(255, 255, 255, 0.7)",
     ];
 
     const draw = () => {

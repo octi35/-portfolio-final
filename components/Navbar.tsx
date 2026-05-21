@@ -1,105 +1,100 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Home, User, FolderOpen, Mail } from "lucide-react";
 
-const Navbar = () => {
+const navItems = [
+  { id: "home",     label: "Inicio",    icon: Home,       href: "#home"     },
+  { id: "sobre-mi", label: "Sobre mí",  icon: User,       href: "#sobre-mi" },
+  { id: "projects", label: "Proyectos", icon: FolderOpen, href: "#projects" },
+  { id: "contact",  label: "Contacto",  icon: Mail,       href: "#contact"  },
+];
+
+export default function Navbar() {
+  const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
 
-      // Detect active section
-      const sections = ["home", "projects", "contact"];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 100;
 
-      // Check if we're near the bottom of the page
-      const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
-      
-      if (nearBottom) {
-        setActiveSection("contact");
-        return;
-      }
+      if (nearBottom) { setActive("contact"); return; }
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section);
-            break;
-          }
+      const mid = window.scrollY + window.innerHeight / 2;
+      for (const { id } of navItems) {
+        const el = document.getElementById(id);
+        if (el && mid >= el.offsetTop && mid < el.offsetTop + el.offsetHeight) {
+          setActive(id);
+          break;
         }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Inicio", href: "#home", id: "home" },
-    { name: "Proyectos", href: "#projects", id: "projects" },
-    { name: "Contacto", href: "#contact", id: "contact" },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-black/90 backdrop-blur-lg shadow-lg"
-          : "bg-black/40 backdrop-blur-sm"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo / Name */}
-          <motion.a
-            href="#home"
-            className="text-lg sm:text-2xl font-bold text-white hover:text-orange-400 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Octavio Fakiani
-          </motion.a>
+    <div className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className={`pointer-events-auto flex items-center transition-all duration-500 ease-in-out ${
+          scrolled
+            ? "gap-1 w-auto bg-[#161616]/90 border border-white/10 rounded-full px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+            : "gap-2 w-full max-w-2xl justify-center bg-white/[0.04] border border-white/[0.08] rounded-2xl px-4 py-3 backdrop-blur-md"
+        }`}
+      >
+        {navItems.map(({ id, label, icon: Icon, href }) => {
+          const isActive = active === id;
+          return (
+            <motion.a
+              key={id}
+              href={href}
+              onClick={() => setActive(id)}
+              whileTap={{ scale: 0.95 }}
+              aria-label={label}
+              className={`relative flex items-center gap-2 rounded-full cursor-pointer transition-colors duration-200 ${
+                scrolled ? "px-4 py-2" : "px-5 py-2.5"
+              } ${isActive ? "text-[#0a0a0a]" : "text-gray-400 hover:text-white"}`}
+            >
+              {/* Sliding pill background */}
+              {isActive && (
+                <motion.span
+                  layoutId="pill"
+                  className="absolute inset-0 rounded-full bg-white"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
 
-          {/* Navigation Links */}
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-12">
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className={`relative text-sm sm:text-base font-medium transition-colors group ${
-                  activeSection === link.id
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {link.name}
-                {activeSection === link.id && (
+              <Icon className="relative z-10 w-[18px] h-[18px] shrink-0" />
+
+              {/* Label: always visible when expanded, only when active when collapsed */}
+              <AnimatePresence initial={false}>
+                {(!scrolled || isActive) && (
                   <motion.span
-                    layoutId="activeSection"
-                    className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-400 rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
+                    key="label"
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: "auto", opacity: 1 }}
+                    exit={{ width: 0, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    className="relative z-10 text-sm font-semibold overflow-hidden whitespace-nowrap"
+                  >
+                    {label}
+                  </motion.span>
                 )}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 group-hover:w-full transition-all duration-300"></span>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.nav>
+              </AnimatePresence>
+            </motion.a>
+          );
+        })}
+      </motion.nav>
+    </div>
   );
-};
-
-export default Navbar;
+}

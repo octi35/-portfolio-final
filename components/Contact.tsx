@@ -20,30 +20,37 @@ const Contact = () => {
     setError("");
     
     try {
-      // FormSubmit - Funciona instantáneamente con tu email
-      const formElement = e.currentTarget;
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('message', formData.message);
-
-      const response = await fetch('https://formsubmit.co/octifaki@gmail.com', {
-        method: 'POST',
-        body: formDataToSend,
+      // FormSubmit (endpoint AJAX -> responde JSON y permite CORS)
+      const response = await fetch("https://formsubmit.co/ajax/octifaki@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Nuevo mensaje de ${formData.name} desde tu portfolio`,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && (data.success === true || data.success === "true")) {
         setIsSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
-        
+
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
       } else {
-        setError('Error al enviar el mensaje');
+        setError("Error al enviar el mensaje. Intenta nuevamente.");
       }
     } catch (err) {
-      setError('Error de conexión. Por favor intenta nuevamente.');
+      setError("Error de conexión. Por favor intenta nuevamente.");
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +79,7 @@ const Contact = () => {
             className="space-y-6"
           >
             <div>
-              <p className="text-orange-400 text-sm font-medium mb-2">
+              <p className="text-gray-400 text-sm font-medium mb-2">
                 Hablemos
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -83,7 +90,7 @@ const Contact = () => {
               </p>
               
               <div className="flex items-start gap-3 text-gray-300">
-                <MapPin className="w-5 h-5 text-orange-400 mt-1 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-white mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-gray-400">Ubicación:</p>
                   <p className="text-white">Córdoba, Argentina</p>
@@ -116,7 +123,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-all duration-300"
+                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300"
                   placeholder="Tu nombre"
                 />
               </div>
@@ -136,7 +143,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-all duration-300"
+                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -156,7 +163,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-all duration-300 resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300 resize-none"
                   placeholder="Tu mensaje aquí..."
                 />
               </div>
@@ -172,8 +179,8 @@ const Contact = () => {
                     isSubmitted
                       ? "bg-green-600 text-white cursor-not-allowed"
                       : isLoading
-                      ? "bg-orange-400 text-white cursor-wait"
-                      : "bg-orange-600 hover:bg-orange-500 text-white"
+                      ? "bg-gray-300 text-black cursor-wait"
+                      : "bg-white hover:bg-gray-200 text-black"
                   }`}
                 >
                   {isSubmitted ? (
@@ -192,7 +199,7 @@ const Contact = () => {
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                        className="w-5 h-5 border-2 border-black border-t-transparent rounded-full"
                       />
                       Enviando...
                     </>

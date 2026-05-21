@@ -2,170 +2,178 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Code2, Bot, Building2, ChevronDown, Lightbulb } from "lucide-react";
+import { Code2, Bot, Building2, Lightbulb, ArrowRight } from "lucide-react";
 
 interface ServiceItem {
   id: number;
   title: string;
   icon: React.ElementType;
+  tagline: string;
   content: string[];
 }
 
-const WhatIDo = () => {
-  const [openItem, setOpenItem] = useState<number | null>(1);
+const services: ServiceItem[] = [
+  {
+    id: 1,
+    title: "Web Development",
+    icon: Code2,
+    tagline: "Aplicaciones web rápidas, escalables y a medida.",
+    content: [
+      "Desarrollo de aplicaciones web modernas con React y Next.js",
+      "Integración con APIs REST y bases de datos (SQL Server, MySQL)",
+      "Enfoque en rendimiento, UX y diseño responsive",
+    ],
+  },
+  {
+    id: 2,
+    title: "Automatización & Dashboards",
+    icon: Bot,
+    tagline: "Menos trabajo manual, mejores decisiones con datos.",
+    content: [
+      "Automatización de procesos con n8n e inteligencia artificial",
+      "Construcción de dashboards interactivos con Power BI",
+      "Integración de notificaciones y reportes automáticos para negocio",
+    ],
+  },
+  {
+    id: 3,
+    title: "Sistemas de Gestión para PyMEs",
+    icon: Building2,
+    tagline: "CRM/ERP centralizados para operar todo en un lugar.",
+    content: [
+      "Diseño de soluciones tipo CRM/ERP para PyMEs",
+      "Módulos de ventas, inventario, reservas y finanzas",
+      "Centralización de comunicaciones en un inbox unificado (WhatsApp, Instagram, etc.)",
+    ],
+  },
+  {
+    id: 4,
+    title: "Consultoría & Optimización de Procesos",
+    icon: Lightbulb,
+    tagline: "Arquitecturas y procesos pensados para escalar.",
+    content: [
+      "Análisis y optimización de procesos empresariales",
+      "Consultoría tecnológica para transformación digital",
+      "Evaluación de arquitecturas y propuesta de mejoras escalables",
+    ],
+  },
+];
 
-  const services: ServiceItem[] = [
-    {
-      id: 1,
-      title: "Web Development",
-      icon: Code2,
-      content: [
-        "Desarrollo de aplicaciones web modernas con React y Next.js",
-        "Integración con APIs REST y bases de datos (SQL Server, MySQL)",
-        "Enfoque en rendimiento, UX y diseño responsive",
-      ],
-    },
-    {
-      id: 2,
-      title: "Automatización & Dashboards",
-      icon: Bot,
-      content: [
-        "Automatización de procesos con n8n e inteligencia artificial",
-        "Construcción de dashboards interactivos con Power BI",
-        "Integración de notificaciones y reportes automáticos para negocio",
-      ],
-    },
-    {
-      id: 3,
-      title: "Sistemas de Gestión para PyMEs",
-      icon: Building2,
-      content: [
-        "Diseño de soluciones tipo CRM/ERP para PyMEs",
-        "Módulos de ventas, inventario, reservas y finanzas",
-        "Centralización de comunicaciones en un inbox unificado (WhatsApp, Instagram, etc.)",
-      ],
-    },
-    {
-      id: 4,
-      title: "Consultoría & Optimización de Procesos",
-      icon: Lightbulb,
-      content: [
-        "Análisis y optimización de procesos empresariales",
-        "Consultoría tecnológica para transformación digital",
-        "Evaluación de arquitecturas y propuesta de mejoras escalables",
-      ],
-    },
-  ];
-
-  const toggleItem = (id: number) => {
-    setOpenItem(openItem === id ? null : id);
-  };
+export default function WhatIDo() {
+  const [active, setActive] = useState(1);
+  const current = services.find((s) => s.id === active)!;
+  const CurrentIcon = current.icon;
 
   return (
-    <section className="py-32 px-4 sm:px-6 lg:px-8">
+    <section id="sobre-mi" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-14 text-center"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <p className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3">
+            Servicios
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
             ¿Qué hago?
           </h2>
-          <p className="text-gray-400 text-lg">
-            Servicios y soluciones que ofrezco
-          </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto space-y-4">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div
-                className={`rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden ${
-                  openItem === service.id
-                    ? "bg-gradient-to-br from-orange-900/20 to-gray-900/20 border-orange-500/40 shadow-lg shadow-orange-500/10"
-                    : "bg-gray-900/40 border-gray-800 hover:border-gray-700 hover:bg-gray-900/60"
-                }`}
-                onClick={() => toggleItem(service.id)}
-              >
-                {/* Header */}
-                <div className="p-5 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+        <div className="grid gap-5 lg:grid-cols-[1fr,1.25fr]">
+          {/* Left: selectable list */}
+          <div className="flex flex-col gap-2">
+            {services.map((service) => {
+              const isActive = service.id === active;
+              const Icon = service.icon;
+              return (
+                <button
+                  key={service.id}
+                  onClick={() => setActive(service.id)}
+                  className="relative w-full text-left"
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeService"
+                      className="absolute inset-0 rounded-xl border border-white/20 bg-white/[0.06]"
+                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                    />
+                  )}
+                  <div className="relative flex items-center gap-4 p-4">
                     <div
-                      className={`p-3 rounded-xl transition-all duration-300 ${
-                        openItem === service.id
-                          ? "bg-orange-500/20 text-orange-400"
-                          : "bg-gray-800 text-gray-400 group-hover:bg-gray-700"
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors duration-300 ${
+                        isActive
+                          ? "bg-white text-black"
+                          : "bg-white/[0.04] text-gray-400 border border-white/10"
                       }`}
                     >
-                      <service.icon className="w-6 h-6" />
+                      <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <span
+                      className={`flex-1 text-[15px] font-semibold transition-colors ${
+                        isActive ? "text-white" : "text-gray-400"
+                      }`}
+                    >
                       {service.title}
-                    </h3>
-                  </div>
-                  <motion.div
-                    animate={{ rotate: openItem === service.id ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDown
-                      className={`w-5 h-5 transition-colors ${
-                        openItem === service.id
-                          ? "text-orange-400"
-                          : "text-gray-400"
+                    </span>
+                    <ArrowRight
+                      className={`h-4 w-4 transition-all duration-300 ${
+                        isActive
+                          ? "translate-x-0 text-white opacity-100"
+                          : "-translate-x-2 text-gray-500 opacity-0"
                       }`}
                     />
-                  </motion.div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right: animated detail panel */}
+          <div className="relative min-h-[320px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+            {/* Watermark number */}
+            <span className="pointer-events-none absolute -right-3 -top-6 select-none text-[120px] font-bold leading-none text-white/[0.035]">
+              {String(active).padStart(2, "0")}
+            </span>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
+              >
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-white">
+                  <CurrentIcon className="h-7 w-7" />
                 </div>
 
-                {/* Content */}
-                <AnimatePresence>
-                  {openItem === service.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
+                <h3 className="text-2xl font-bold text-white">{current.title}</h3>
+                <p className="mt-2 text-gray-400">{current.tagline}</p>
+
+                <ul className="mt-6 space-y-3">
+                  {current.content.map((item, idx) => (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + idx * 0.08 }}
+                      className="flex items-start gap-3 text-gray-300"
                     >
-                      <div className="px-5 pb-5 pt-0">
-                        <ul className="space-y-3">
-                          {service.content.map((item, idx) => (
-                            <motion.li
-                              key={idx}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                              className="flex items-start gap-3 text-gray-300"
-                            >
-                              <span className="text-orange-400 mt-1 flex-shrink-0">
-                                •
-                              </span>
-                              <span className="text-sm leading-relaxed">
-                                {item}
-                              </span>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ))}
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
+                      <span className="text-sm leading-relaxed">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default WhatIDo;
+}
