@@ -24,7 +24,7 @@ const Contact = () => {
     
     try {
       // FormSubmit (endpoint AJAX -> responde JSON y permite CORS)
-      const response = await fetch("https://formsubmit.co/ajax/octifaki@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/2bbc8efaa9a66aa89e57fd4aaa07cb55", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
