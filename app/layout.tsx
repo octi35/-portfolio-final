@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import ParticlesBackground from "@/components/ParticlesBackground";
+import PageLoader from "@/components/PageLoader";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${dmSans.variable} ${cormorant.variable} antialiased`}>
+        <PageLoader />
         <ParticlesBackground />
         {children}
       </body>

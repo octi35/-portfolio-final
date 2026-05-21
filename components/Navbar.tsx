@@ -49,7 +49,7 @@ export default function Navbar() {
         className={`pointer-events-auto flex items-center transition-all duration-500 ease-in-out ${
           scrolled
             ? "gap-1 w-auto bg-[#161616]/90 border border-white/10 rounded-full px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-            : "gap-2 w-full max-w-2xl justify-center bg-white/[0.04] border border-white/[0.08] rounded-2xl px-4 py-3 backdrop-blur-md"
+            : "gap-1 sm:gap-2 w-full max-w-2xl justify-center bg-white/[0.04] border border-white/[0.08] rounded-2xl px-2 sm:px-4 py-2 sm:py-3 backdrop-blur-md"
         }`}
       >
         {navItems.map(({ id, label, icon: Icon, href }) => {
@@ -62,7 +62,7 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
               aria-label={label}
               className={`relative flex items-center gap-2 rounded-full cursor-pointer transition-colors duration-200 ${
-                scrolled ? "px-4 py-2" : "px-5 py-2.5"
+                scrolled ? "px-4 py-2" : "px-3 sm:px-5 py-2.5"
               } ${isActive ? "text-[#0a0a0a]" : "text-gray-400 hover:text-white"}`}
             >
               {/* Sliding pill background */}
@@ -85,7 +85,9 @@ export default function Navbar() {
                     animate={{ width: "auto", opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                    className="relative z-10 text-sm font-semibold overflow-hidden whitespace-nowrap"
+                    className={`relative z-10 text-sm font-semibold overflow-hidden whitespace-nowrap ${
+                      !scrolled && !isActive ? "hidden sm:inline" : ""
+                    }`}
                   >
                     {label}
                   </motion.span>

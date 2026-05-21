@@ -36,10 +36,10 @@ export default function ScrollRevealText() {
   return (
     <section
       ref={containerRef}
-      className="py-28 sm:py-40 px-4 sm:px-6 lg:px-8"
+      className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-4xl mx-auto">
-        <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-snug tracking-tight">
+        <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-snug tracking-tight text-center">
           {words.map((word, i) => {
             const start = i / words.length;
             const end = Math.min((i + 1.5) / words.length, 1);

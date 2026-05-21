@@ -29,22 +29,28 @@ const TechStack = () => {
   const duplicatedTechnologies = [...technologies, ...technologies, ...technologies];
 
   return (
-    <section className="py-32 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+        <div className="text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4"
+          >
             Tecnologías
-          </h2>
-          <p className="text-gray-400 text-lg">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="text-gray-400 text-lg"
+          >
             Tecnologías y herramientas con las que trabajo
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Carousel Container */}
         <div className="relative overflow-hidden">

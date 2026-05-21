@@ -3,6 +3,9 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Send, MapPin } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const ContactScene3D = dynamic(() => import("./ContactScene3D"), { ssr: false });
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -67,8 +70,20 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
+
+        {/* 3D scene divider */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="h-[220px] sm:h-[280px] lg:h-[320px] w-full mb-8 sm:mb-12"
+        >
+          <ContactScene3D />
+        </motion.div>
+
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Info */}
           <motion.div
@@ -79,12 +94,24 @@ const Contact = () => {
             className="space-y-6"
           >
             <div>
-              <p className="text-gray-400 text-sm font-medium mb-2">
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="text-gray-400 text-sm font-medium mb-2"
+              >
                 Hablemos
-              </p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6"
+              >
                 Contacto
-              </h2>
+              </motion.h2>
               <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8">
                 ¿Tienes una pregunta o un proyecto en mente? No dudes en contactarme.
               </p>

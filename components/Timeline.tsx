@@ -16,23 +16,29 @@ export default function Timeline() {
   const beamHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
-        >
-          <p className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3">
+        <div className="mb-10 sm:mb-16 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
+          >
             Mi recorrido
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+          >
             Mi Trayectoria
-          </h2>
-        </motion.div>
+          </motion.h2>
+        </div>
 
         {/* Timeline */}
         <div ref={containerRef} className="relative">
@@ -52,10 +58,10 @@ export default function Timeline() {
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.05 }}
-                  viewport={{ once: true, margin: "-80px" }}
+                  initial={{ opacity: 0, x: 48, scale: 0.97 }}
+                  whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                  transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true, margin: "-60px" }}
                   className="relative pl-16 sm:pl-20"
                 >
                   {/* Node */}
@@ -72,7 +78,7 @@ export default function Timeline() {
                   </div>
 
                   {/* Card */}
-                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.05]">
+                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.05]">
                     {/* Top accent line */}
                     <span className="absolute inset-x-0 top-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-white/60 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
 

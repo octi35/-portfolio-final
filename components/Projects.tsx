@@ -12,17 +12,17 @@ const subtitles: Record<number, string> = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 sm:py-32 px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="flex items-start justify-between mb-10 sm:mb-14">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-bold text-white leading-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight"
           >
             Proyectos<br />Destacados
           </motion.h2>
@@ -50,9 +50,9 @@ export default function Projects() {
               href={project.demoUrl !== "#" ? project.demoUrl : undefined}
               target={project.demoUrl !== "#" ? "_blank" : undefined}
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true }}
               className="group block cursor-pointer"
             >

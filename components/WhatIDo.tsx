@@ -61,29 +61,106 @@ const services: ServiceItem[] = [
 
 export default function WhatIDo() {
   const [active, setActive] = useState(1);
+  const [mobileOpen, setMobileOpen] = useState<number>(1);
   const current = services.find((s) => s.id === active)!;
   const CurrentIcon = current.icon;
 
   return (
-    <section id="sobre-mi" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
+    <section id="sobre-mi" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-14 text-center"
-        >
-          <p className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3">
+        <div className="mb-10 sm:mb-14 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
+          >
             Servicios
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+          >
             ¿Qué hago?
-          </h2>
-        </motion.div>
+          </motion.h2>
+        </div>
 
-        <div className="grid gap-5 lg:grid-cols-[1fr,1.25fr]">
+        {/* ── MOBILE layout: accordion (hidden on lg+) ── */}
+        <div className="lg:hidden divide-y divide-white/[0.08] border border-white/[0.08] rounded-2xl overflow-hidden">
+          {services.map((service, index) => {
+            const isOpen = service.id === mobileOpen;
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.07 }}
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => setMobileOpen(isOpen ? 0 : service.id)}
+                  className="w-full flex items-center gap-4 px-5 py-4 text-left"
+                >
+                  <div
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-300 ${
+                      isOpen ? "bg-white text-black" : "bg-white/[0.05] text-gray-400"
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span
+                    className={`flex-1 text-[15px] font-semibold transition-colors ${
+                      isOpen ? "text-white" : "text-gray-400"
+                    }`}
+                  >
+                    {service.title}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`text-xl font-light leading-none transition-colors ${isOpen ? "text-white" : "text-gray-600"}`}
+                  >
+                    +
+                  </motion.span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 pt-1">
+                        <p className="text-sm text-gray-400 mb-3">{service.tagline}</p>
+                        <ul className="space-y-2.5">
+                          {service.content.map((item) => (
+                            <li key={item} className="flex items-start gap-3 text-gray-300">
+                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
+                              <span className="text-sm leading-relaxed">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* ── DESKTOP layout: interactive split (hidden below lg) ── */}
+        <div className="hidden lg:grid gap-5 lg:grid-cols-[1fr,1.25fr]">
           {/* Left: selectable list */}
           <div className="flex flex-col gap-2">
             {services.map((service) => {
@@ -134,7 +211,6 @@ export default function WhatIDo() {
 
           {/* Right: animated detail panel */}
           <div className="relative min-h-[320px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
-            {/* Watermark number */}
             <span className="pointer-events-none absolute -right-3 -top-6 select-none text-[120px] font-bold leading-none text-white/[0.035]">
               {String(active).padStart(2, "0")}
             </span>

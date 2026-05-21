@@ -16,10 +16,10 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-28 sm:pt-32 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex items-center justify-center pt-16 sm:pt-20 lg:pt-24 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-6xl w-full mx-auto">
-        <div className="grid lg:grid-cols-[1.1fr,1fr] gap-8 sm:gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1.1fr,1fr] gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Left Column - Text */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -40,12 +40,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="font-serif text-6xl sm:text-7xl lg:text-8xl font-medium text-white leading-[0.95]"
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[0.95]"
             >
-              Software
+              Analista de
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">
-                Developer
+                Sistemas
               </span>
             </motion.h1>
 
@@ -100,7 +100,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="order-1 lg:order-2 h-[300px] sm:h-[420px] lg:h-[520px] w-full"
+            className="order-1 lg:order-2 h-[200px] sm:h-[340px] lg:h-[420px] w-full"
           >
             <Scene3D />
           </motion.div>
