@@ -43,4 +43,48 @@ export const projects: Project[] = [
     demoUrl: "#",
     repoUrl: "#",
   },
+  {
+    id: 4,
+    title: "StockPro – Gestión de Depósitos",
+    description:
+      "Sistema de gestión de inventarios y depósitos (warehouse management) con dashboard, control de stock, alertas críticas, movimientos, proveedores y auditoría.",
+    status: "Deployed",
+    tech: "React, dashboard, inventario",
+    image: "/images/stockpro.png",
+    demoUrl: "#",
+    repoUrl: "#",
+  },
+  {
+    id: 5,
+    title: "AURA Pro X – Landing 3D",
+    description:
+      "Página web 3D inmersiva para auriculares premium, con escena interactiva, scroll storytelling y diseño minimalista enfocado en producto.",
+    status: "Deployed",
+    tech: "Three.js, React, 3D",
+    image: "/images/aura.png",
+    demoUrl: "#",
+    repoUrl: "#",
+  },
+  {
+    id: 6,
+    title: "Mercedes-Benz AMG – Web 3D",
+    description:
+      "Experiencia web 3D para la serie AMG de Mercedes-Benz, con tipografía editorial, animaciones cinematográficas y configurador interactivo.",
+    status: "Deployed",
+    tech: "Three.js, React, 3D",
+    image: "/images/mercedes.png",
+    demoUrl: "#",
+    repoUrl: "#",
+  },
+  {
+    id: 7,
+    title: "Sistema Contable – Automatización para Contadores",
+    description:
+      "Plataforma para estudios contables con automatizaciones de tareas repetitivas: carga de comprobantes, conciliaciones, reportes y flujos integrados con APIs.",
+    status: "In development",
+    tech: "Automatización, APIs, contable",
+    image: "/images/sistemacontable.png",
+    demoUrl: "#",
+    repoUrl: "#",
+  },
 ];

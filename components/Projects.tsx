@@ -8,6 +8,10 @@ const subtitles: Record<number, string> = {
   1: "Plataforma de Eventos · React & SQL",
   2: "Sistema CRM/ERP · React, .NET & n8n",
   3: "Automatización con IA · n8n & APIs",
+  4: "Warehouse Management · React",
+  5: "Landing 3D · Three.js & React",
+  6: "Web 3D · Three.js & React",
+  7: "Sistema Contable · Automatización & APIs",
 };
 
 export default function Projects() {
