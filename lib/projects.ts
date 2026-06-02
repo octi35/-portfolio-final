@@ -62,7 +62,7 @@ export const projects: Project[] = [
     status: "Deployed",
     tech: "Three.js, React, 3D",
     image: "/images/aura.png",
-    demoUrl: "#",
+    demoUrl: "https://3dwebscroll-5h1e9onx6-octi35s-projects.vercel.app",
     repoUrl: "#",
   },
   {
