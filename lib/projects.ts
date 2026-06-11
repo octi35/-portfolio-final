@@ -98,4 +98,26 @@ export const projects: Project[] = [
     demoUrl: "https://analizador-cva.vercel.app/",
     repoUrl: "#",
   },
+  {
+    id: 9,
+    title: "Portfolio 3D – Landing Personal Inmersiva",
+    description:
+      "Landing page personal de alto impacto visual que combina un fondo estrellado con efectos de partículas en 3D y tipografía editorial de gran escala. El diseño minimalista pone el foco en la propuesta de valor del creativo, con animaciones de entrada fluidas, integración de email para captura de leads, links a redes sociales y un CTA principal. Cada elemento fue pensado para generar una primera impresión memorable y transmitir profesionalismo desde el primer segundo de carga.",
+    status: "Deployed",
+    tech: "React, Three.js, GSAP, WebGL, Framer Motion, Tailwind CSS, Partículas 3D",
+    image: "/images/web3d1.jpeg",
+    demoUrl: "https://imitacionweb.vercel.app",
+    repoUrl: "#",
+  },
+  {
+    id: 10,
+    title: "ToonHub – Showcase de Figuras 3D Coleccionables",
+    description:
+      "Showcase web inmersivo para una colección exclusiva de figuras 3D coleccionables con estética streetwear y diseño de alto impacto. Presenta cada figura en un slider editorial de pantalla completa con fondo de color dinámico, numeración cinematográfica y tipografía oversized. Cada slide combina el personaje 3D principal con variantes secundarias flotantes, descripción del producto y CTAs de acción directa. Diseñado para transmitir exclusividad y despertar el deseo coleccionable en el usuario desde el primer vistazo.",
+    status: "Deployed",
+    tech: "React, Three.js, GSAP, WebGL, Framer Motion, Tailwind CSS, Animaciones 3D",
+    image: "/images/web3d2.jpeg",
+    demoUrl: "https://imitacionweb2.vercel.app",
+    repoUrl: "#",
+  },
 ];
