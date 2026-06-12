@@ -106,7 +106,7 @@ export const projects: Project[] = [
     status: "Deployed",
     tech: "React, Three.js, GSAP, WebGL, Framer Motion, Tailwind CSS, Partículas 3D",
     image: "/images/web3d1.jpeg",
-    demoUrl: "https://imitacionweb.vercel.app",
+    demoUrl: "https://imitacionweb2.vercel.app",
     repoUrl: "#",
   },
   {
@@ -117,7 +117,7 @@ export const projects: Project[] = [
     status: "Deployed",
     tech: "React, Three.js, GSAP, WebGL, Framer Motion, Tailwind CSS, Animaciones 3D",
     image: "/images/web3d2.jpeg",
-    demoUrl: "https://imitacionweb2.vercel.app",
+    demoUrl: "https://imitacionweb.vercel.app",
     repoUrl: "#",
   },
 ];
