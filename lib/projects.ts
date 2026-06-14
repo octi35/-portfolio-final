@@ -84,7 +84,7 @@ export const projects: Project[] = [
     status: "In development",
     tech: "React, TypeScript, Node.js, SQL, n8n, REST API, Automatización",
     image: "/images/sistemacontable.png",
-    demoUrl: "#",
+    demoUrl: "https://estudiocontable-kappa.vercel.app/login",
     repoUrl: "#",
   },
   {
