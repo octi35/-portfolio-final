@@ -33,17 +33,6 @@ export const projects: Project[] = [
     repoUrl: "#",
   },
   {
-    id: 3,
-    title: "Fortek Automations – IA & Workflows",
-    description:
-      "Colección de automatizaciones inteligentes construidas para captar leads, nutrir oportunidades comerciales y centralizar la comunicación de la empresa en un inbox multicanal. Conecta WhatsApp, email y formularios web con flujos de trabajo automatizados en n8n, integrando modelos de IA para calificar contactos, responder consultas frecuentes y derivar conversaciones al equipo adecuado. Reduce los tiempos de respuesta y asegura que ningún lead quede sin seguimiento.",
-    status: "In development",
-    tech: "n8n, OpenAI API, JavaScript, Webhooks, REST API, WhatsApp API, Automatización",
-    image: "/images/operoland.png",
-    demoUrl: "#",
-    repoUrl: "#",
-  },
-  {
     id: 4,
     title: "StockPro – Gestión de Depósitos",
     description:
@@ -63,17 +52,6 @@ export const projects: Project[] = [
     tech: "Three.js, React, React Three Fiber, GSAP, WebGL, Framer Motion, Tailwind CSS",
     image: "/images/aura.png",
     demoUrl: "https://3dwebscroll-5h1e9onx6-octi35s-projects.vercel.app",
-    repoUrl: "#",
-  },
-  {
-    id: 6,
-    title: "Mercedes-Benz AMG – Web 3D",
-    description:
-      "Experiencia web 3D de alto nivel para la serie AMG de Mercedes-Benz, inspirada en las webs editoriales de las marcas automotrices premium. Incluye un configurador interactivo del vehículo en 3D, tipografía editorial cuidada, animaciones cinematográficas activadas por scroll y transiciones suaves entre secciones. Busca recrear la sensación de exclusividad de la marca a través del diseño y el movimiento.",
-    status: "Deployed",
-    tech: "Three.js, React, React Three Fiber, GSAP, WebGL, Framer Motion, Tailwind CSS",
-    image: "/images/mercedes.png",
-    demoUrl: "#",
     repoUrl: "#",
   },
   {
