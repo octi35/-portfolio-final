@@ -48,17 +48,6 @@ export const timelineData: TimelineItem[] = [
     skills: ["React", "SQL", "Automatización", "APIs REST"],
   },
   {
-    id: 4,
-    type: "education",
-    title: "Programación en Análisis de Sistemas",
-    organization: "Teclab Instituto Técnico Superior",
-    location: "Córdoba, Argentina",
-    startDate: "Ene 2022",
-    endDate: "Ene 2024",
-    description: "Formación técnica en programación y análisis de sistemas, con enfoque en bases de datos y desarrollo de aplicaciones.",
-    skills: ["SQL", "Bases de datos", "Programación"],
-  },
-  {
     id: 5,
     type: "experience",
     title: "Técnico de TI",

@@ -8,12 +8,14 @@ import { projects, type Project } from "@/lib/projects";
 const subtitles: Record<number, string> = {
   1: "Plataforma de Eventos · React & SQL",
   2: "Sistema CRM/ERP · React, .NET & SQL Server",
-  3: "Automatización con IA · n8n & APIs",
+  3: "SaaS de atención al cliente · IA & Supabase",
   4: "Warehouse Management · React",
   5: "Landing 3D · Three.js & React",
-  6: "Web 3D · Three.js & React",
+  6: "Gestión hotelera · Next.js & Supabase",
   7: "Sistema Contable · Automatización & APIs",
   8: "Análisis de CVs con IA · Llama 3.3",
+  9: "Portfolio 3D · WebGL & GSAP",
+  10: "Showcase 3D · WebGL & Framer Motion",
 };
 
 export default function Projects() {
@@ -100,7 +102,7 @@ export default function Projects() {
                     {project.title.split("–")[0].trim()}
                   </h3>
                   <p className="text-gray-500 text-sm mt-1">
-                    {subtitles[project.id]}
+                    {subtitles[project.id] ?? project.title}
                   </p>
                 </div>
 
@@ -147,7 +149,7 @@ export default function Projects() {
           {/* Estadísticas */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-10 pt-8 border-t border-white/[0.08]">
             {[
-              { value: "8+", label: "Proyectos desarrollados" },
+              { value: "10+", label: "Proyectos desarrollados" },
               { value: "5+", label: "Clientes en distintos rubros" },
               { value: "Full-stack", label: "Frontend, backend y deploy" },
               { value: "IA", label: "Automatizaciones e integraciones" },

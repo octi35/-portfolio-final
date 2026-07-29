@@ -33,6 +33,17 @@ export const projects: Project[] = [
     repoUrl: "#",
   },
   {
+    id: 3,
+    title: "Respondo – SaaS de Atención al Cliente con IA",
+    description:
+      "SaaS full-stack de atención al cliente y ventas potenciado por IA, pensado para pymes que venden por chat. Un agente conversacional con Gemini, fallback a OpenRouter y motor de reglas local atiende WhatsApp, Instagram Direct, Facebook Messenger y Email en una bandeja unificada, entendiendo texto, imágenes y notas de voz. Cada conversación alimenta un CRM integrado con scoring de intención de compra, etapas de embudo y handoff a un humano en cualquier momento. El sistema genera links de pago reales de Mercado Pago, sincroniza catálogo con TiendaNube, Shopify y WooCommerce, corre campañas de difusión y seguimientos automáticos para recuperar carritos abandonados, y expone métricas de conversión y facturación.",
+    status: "Deployed",
+    tech: "React 19, TypeScript, Vite, Tailwind 4, Express, Supabase, PostgreSQL, Auth, RLS, Docker, Render, Railway",
+    image: "/images/respondo.jpeg",
+    demoUrl: "#",
+    repoUrl: "#",
+  },
+  {
     id: 4,
     title: "StockPro – Gestión de Depósitos",
     description:
@@ -52,6 +63,17 @@ export const projects: Project[] = [
     tech: "Three.js, React, React Three Fiber, GSAP, WebGL, Framer Motion, Tailwind CSS",
     image: "/images/aura.png",
     demoUrl: "https://3dwebscroll-5h1e9onx6-octi35s-projects.vercel.app",
+    repoUrl: "#",
+  },
+  {
+    id: 6,
+    title: "Blanca Patagonia PMS – Gestión Hotelera",
+    description:
+      "Sistema integral de gestión hotelera full-stack desarrollado para una hostería boutique y cabañas de El Calafate. Reemplaza al software heredado WinPax y reduce la dependencia de Booking mediante un motor de reservas propio. La aplicación separa dos vistas: un panel interno por roles para administración, gerencia, recepción y housekeeping, y un portal público de reservas para huéspedes. Su núcleo es un motor de disponibilidad que hace imposible el overbooking, resuelto con una restricción de exclusión de PostgreSQL. Está construido con Next.js 16 y Supabase, con seguridad por Row Level Security en todas las tablas, cobertura de tests y documentación de arquitectura al estilo de una entrega profesional.",
+    status: "Deployed",
+    tech: "Next.js 16, Supabase, PostgreSQL, RLS, TypeScript, Tests, ADRs",
+    image: "/images/hotel.jpeg",
+    demoUrl: "#",
     repoUrl: "#",
   },
   {
