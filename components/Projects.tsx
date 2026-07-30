@@ -263,9 +263,15 @@ export default function Projects() {
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   ) : (
-                    <div className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-gray-500 font-medium cursor-not-allowed">
+                    <a
+                      href={selected.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-white font-medium hover:bg-white/[0.08] transition-colors"
+                    >
                       Próximamente disponible
-                    </div>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
                   )}
                 </div>
               </div>
