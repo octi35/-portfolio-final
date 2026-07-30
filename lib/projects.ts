@@ -41,7 +41,7 @@ export const projects: Project[] = [
     tech: "React 19, TypeScript, Vite, Tailwind 4, Express, Supabase, PostgreSQL, Auth, RLS, Docker, Render, Railway",
     image: "/images/respondo.jpeg",
     demoUrl: "#",
-    repoUrl: "#",
+    repoUrl: "https://github.com/octi35/Proyecto-chatbot-y-prospectador-con-ia.git",
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     tech: "Next.js 16, Supabase, PostgreSQL, RLS, TypeScript, Tests, ADRs",
     image: "/images/hotel.jpeg",
     demoUrl: "#",
-    repoUrl: "#",
+    repoUrl: "https://github.com/octi35/BlancaPatgoniaHotelApp.git",
   },
   {
     id: 7,
