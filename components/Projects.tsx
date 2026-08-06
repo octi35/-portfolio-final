@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X, ExternalLink } from "lucide-react";
 import { projects, type Project } from "@/lib/projects";
+import CaseStudies from "@/components/CaseStudies";
 
 const subtitles: Record<number, string> = {
   1: "Plataforma de Eventos · React & SQL",
@@ -114,6 +115,9 @@ export default function Projects() {
           ))}
         </div>
 
+        {/* Case studies — el detrás de escena de los proyectos destacados */}
+        <CaseStudies />
+
         {/* Resumen profesional para reclutadores */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -127,23 +131,29 @@ export default function Projects() {
           </h3>
 
           <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-5 max-w-3xl">
-            A lo largo de estos proyectos trabajé con{" "}
-            <span className="text-white font-medium">clientes reales</span> en
-            rubros muy distintos —eventos, comercios, estudios contables,
-            PyMEs y reclutamiento—, llevando productos desde la idea hasta su
-            puesta en producción. Desarrollé{" "}
-            <span className="text-white font-medium">plataformas web completas</span>,
-            sistemas de gestión (CRM/ERP), automatizaciones con IA y
-            experiencias web 3D, encargándome tanto del frontend como del
-            backend, la base de datos y el despliegue.
+            Me especializo en llevar sistemas de gestión y plataformas web
+            desde la idea hasta producción, con foco en un problema puntual:{" "}
+            <span className="text-white font-medium">
+              modernizar procesos que las PyMEs todavía manejan a mano o con
+              sistemas viejos
+            </span>{" "}
+            —desde reemplazar un sistema legacy de liquidación de sueldos
+            hasta automatizar tareas repetitivas con IA. Trabajé con estudios
+            contables, comercios, plataformas de eventos y reclutamiento,
+            siempre encargándome del{" "}
+            <span className="text-white font-medium">
+              ciclo completo: frontend, backend, base de datos y despliegue
+            </span>
+            .
           </p>
 
           <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-4 max-w-3xl">
-            Me adapto al stack que cada proyecto necesita —React, TypeScript,
-            Node.js, .NET, SQL, Three.js, n8n e integraciones con modelos de
-            IA como Llama 3.3— y priorizo entregar soluciones que resuelvan
-            problemas concretos del negocio, con buena experiencia de usuario y
-            código mantenible.
+            Stack principal: React, Node.js, .NET y SQL Server, con
+            automatizaciones en n8n e integraciones de IA cuando el proyecto
+            lo pide, trabajando con el modelo que mejor se adapte a cada caso
+            en lugar de atarme a un proveedor. Priorizo soluciones que el
+            cliente pueda mantener y entender, no solo que funcionen el día de
+            la entrega.
           </p>
 
           {/* Estadísticas */}
@@ -151,8 +161,8 @@ export default function Projects() {
             {[
               { value: "10+", label: "Proyectos desarrollados" },
               { value: "5+", label: "Clientes en distintos rubros" },
-              { value: "Full-stack", label: "Frontend, backend y deploy" },
-              { value: "IA", label: "Automatizaciones e integraciones" },
+              { value: "+3 años", label: "Experiencia en desarrollo" },
+              { value: "Legacy → Cloud", label: "De sistemas viejos a producción moderna" },
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl sm:text-3xl font-bold text-white">
