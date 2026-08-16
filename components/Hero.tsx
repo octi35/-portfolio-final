@@ -42,10 +42,10 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[0.95]"
             >
-              Analista de
+              Full Stack
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">
-                Sistemas
+                Developer
               </span>
             </motion.h1>
 
@@ -55,10 +55,29 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-lg"
             >
-              Analista de sistemas especializado en desarrollo web, automatización
-              e inteligencia artificial. Construyo productos limpios y escalables
-              con React, .NET y Python.
+              Full Stack Developer con más de 3 años construyendo aplicaciones web
+              a medida, APIs REST e integraciones de IA con React, Node.js y
+              C#/.NET sobre SQL Server y PostgreSQL. Experiencia remota con equipos
+              de Estados Unidos e India.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.48 }}
+              className="flex flex-wrap gap-2"
+            >
+              {["Inglés B2 / C1", "Remoto — US & Asia", "Disponible para freelance"].map(
+                (badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-xs font-medium text-gray-300"
+                  >
+                    {badge}
+                  </span>
+                )
+              )}
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -82,7 +101,7 @@ export default function Hero() {
               ))}
 
               <motion.a
-                href="/documents/CV_Octavio_Fakiani_ATS.docx"
+                href="/documents/CV_Octavio_Fakiani_v3.docx"
                 download
                 className="px-4 py-3 rounded-lg bg-white text-black font-medium text-sm flex items-center gap-2 transition-all duration-300 hover:bg-gray-200"
                 whileHover={{ scale: 1.05, y: -3 }}

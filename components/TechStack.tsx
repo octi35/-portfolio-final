@@ -1,16 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  SiReact, 
-  SiTypescript, 
-  SiTailwindcss, 
-  SiNextdotjs, 
+import {
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiNextdotjs,
   SiNodedotjs,
   SiMysql,
+  SiPostgresql,
+  SiDotnet,
   SiPython
 } from "react-icons/si";
-import { Workflow, BarChart3 } from "lucide-react";
+import { Workflow, BarChart3, Webhook, Database } from "lucide-react";
 
 const TechStack = () => {
   const technologies = [
@@ -19,7 +21,11 @@ const TechStack = () => {
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-teal-400" },
     { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
     { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
+    { name: "C# / .NET", icon: SiDotnet, color: "text-purple-400" },
+    { name: "APIs REST", icon: Webhook, color: "text-orange-400" },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "text-sky-400" },
     { name: "MySQL", icon: SiMysql, color: "text-blue-400" },
+    { name: "SQL Server", icon: Database, color: "text-red-400" },
     { name: "Python", icon: SiPython, color: "text-yellow-400" },
     { name: "Power BI", icon: BarChart3, color: "text-yellow-500" },
     { name: "n8n", icon: Workflow, color: "text-gray-300" },
@@ -57,13 +63,13 @@ const TechStack = () => {
           <motion.div
             className="flex gap-16 items-center"
             animate={{
-              x: [0, -1800],
+              x: [0, -2600],
             }}
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 30,
+                duration: 43,
                 ease: "linear",
               },
             }}

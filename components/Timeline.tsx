@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase, GraduationCap, MapPin, Calendar } from "lucide-react";
+import { Briefcase, GraduationCap, MapPin, Calendar, Globe } from "lucide-react";
 import { timelineData } from "@/lib/timeline";
 
 export default function Timeline() {
@@ -90,6 +90,12 @@ export default function Timeline() {
                       {item.current && (
                         <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] font-medium text-white">
                           Actualidad
+                        </span>
+                      )}
+                      {item.remote && (
+                        <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-gray-300">
+                          <Globe className="h-3 w-3" />
+                          Remoto
                         </span>
                       )}
                     </div>

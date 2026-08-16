@@ -36,7 +36,7 @@ export default function PageLoader() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-2 text-xs font-medium tracking-[0.3em] uppercase text-gray-500"
           >
-            Software Developer
+            Full Stack Developer
           </motion.p>
 
           {/* Progress bar */}

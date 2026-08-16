@@ -20,7 +20,7 @@ const services: ServiceItem[] = [
     tagline: "Aplicaciones web rápidas, escalables y a medida.",
     content: [
       "Desarrollo de aplicaciones web modernas con React y Next.js",
-      "Integración con APIs REST y bases de datos (SQL Server, MySQL)",
+      "Diseño e integración de APIs REST y bases de datos (SQL Server, PostgreSQL, MySQL)",
       "Enfoque en rendimiento, UX y diseño responsive",
     ],
   },
