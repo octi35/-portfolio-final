@@ -4,8 +4,29 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, GraduationCap, MapPin, Calendar, Globe } from "lucide-react";
 import { timelineData } from "@/lib/timeline";
+import { localize, type Locale } from "@/lib/i18n";
 
-export default function Timeline() {
+const copy = {
+  es: {
+    eyebrow: "Mi recorrido",
+    title: "Mi Trayectoria",
+    experience: "Experiencia",
+    education: "Educación",
+    current: "Actualidad",
+    remote: "Remoto",
+  },
+  en: {
+    eyebrow: "My path",
+    title: "My Journey",
+    experience: "Experience",
+    education: "Education",
+    current: "Current",
+    remote: "Remote",
+  },
+};
+
+export default function Timeline({ locale }: { locale: Locale }) {
+  const t = copy[locale];
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -27,7 +48,7 @@ export default function Timeline() {
             viewport={{ once: true }}
             className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
           >
-            Mi recorrido
+            {t.eyebrow}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 28 }}
@@ -36,7 +57,7 @@ export default function Timeline() {
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
           >
-            Mi Trayectoria
+            {t.title}
           </motion.h2>
         </div>
 
@@ -85,50 +106,50 @@ export default function Timeline() {
                     {/* Type + current */}
                     <div className="mb-3 flex items-center gap-3">
                       <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-gray-500">
-                        {isExp ? "Experiencia" : "Educación"}
+                        {isExp ? t.experience : t.education}
                       </span>
                       {item.current && (
                         <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] font-medium text-white">
-                          Actualidad
+                          {t.current}
                         </span>
                       )}
                       {item.remote && (
                         <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-gray-300">
                           <Globe className="h-3 w-3" />
-                          Remoto
+                          {t.remote}
                         </span>
                       )}
                     </div>
 
                     {/* Title + org */}
                     <h3 className="text-lg font-semibold text-white leading-snug">
-                      {item.title}
+                      {localize(item.title, locale)}
                     </h3>
                     <p className="mt-0.5 text-sm font-medium text-gray-300">
-                      {item.organization}
+                      {localize(item.organization, locale)}
                     </p>
 
                     {/* Meta */}
                     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                       <span className="flex items-center gap-1.5">
                         <Calendar className="h-3.5 w-3.5" />
-                        {item.startDate} — {item.endDate}
+                        {localize(item.startDate, locale)} — {localize(item.endDate, locale)}
                       </span>
                       <span className="flex items-center gap-1.5">
                         <MapPin className="h-3.5 w-3.5" />
-                        {item.location}
+                        {localize(item.location, locale)}
                       </span>
                     </div>
 
                     {/* Description */}
                     <p className="mt-4 text-sm leading-relaxed text-gray-400">
-                      {item.description}
+                      {item.description[locale]}
                     </p>
 
                     {/* Skills */}
                     {item.skills && item.skills.length > 0 && (
                       <div className="mt-5 flex flex-wrap gap-2">
-                        {item.skills.map((skill) => (
+                        {item.skills.map((s) => localize(s, locale)).map((skill) => (
                           <span
                             key={skill}
                             className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-300 transition-colors hover:border-white/30 hover:text-white"

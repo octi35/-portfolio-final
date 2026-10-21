@@ -13,8 +13,23 @@ import {
   SiPython
 } from "react-icons/si";
 import { Workflow, BarChart3, Webhook, Database } from "lucide-react";
+import type { Locale } from "@/lib/i18n";
 
-const TechStack = () => {
+const copy = {
+  es: {
+    title: "Tecnologías",
+    subtitle: "Tecnologías y herramientas con las que trabajo",
+    restApis: "APIs REST",
+  },
+  en: {
+    title: "Tech Stack",
+    subtitle: "Technologies and tools I work with",
+    restApis: "REST APIs",
+  },
+};
+
+const TechStack = ({ locale }: { locale: Locale }) => {
+  const t = copy[locale];
   const technologies = [
     { name: "React", icon: SiReact, color: "text-cyan-400" },
     { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
@@ -22,7 +37,7 @@ const TechStack = () => {
     { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
     { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
     { name: "C# / .NET", icon: SiDotnet, color: "text-purple-400" },
-    { name: "APIs REST", icon: Webhook, color: "text-orange-400" },
+    { name: t.restApis, icon: Webhook, color: "text-orange-400" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "text-sky-400" },
     { name: "MySQL", icon: SiMysql, color: "text-blue-400" },
     { name: "SQL Server", icon: Database, color: "text-red-400" },
@@ -45,7 +60,7 @@ const TechStack = () => {
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4"
           >
-            Tecnologías
+            {t.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -54,7 +69,7 @@ const TechStack = () => {
             viewport={{ once: true }}
             className="text-gray-400 text-lg"
           >
-            Tecnologías y herramientas con las que trabajo
+            {t.subtitle}
           </motion.p>
         </div>
 

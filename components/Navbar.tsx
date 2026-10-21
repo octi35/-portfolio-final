@@ -3,15 +3,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, FolderOpen, Mail } from "lucide-react";
+import { homePath, type Locale } from "@/lib/i18n";
 
 const navItems = [
-  { id: "home",     label: "Inicio",    icon: Home,       href: "#home"     },
-  { id: "sobre-mi", label: "Sobre mí",  icon: User,       href: "#sobre-mi" },
-  { id: "projects", label: "Proyectos", icon: FolderOpen, href: "#projects" },
-  { id: "contact",  label: "Contacto",  icon: Mail,       href: "#contact"  },
+  { id: "home",     label: { es: "Inicio",    en: "Home"     }, icon: Home,       href: "#home"     },
+  { id: "sobre-mi", label: { es: "Sobre mí",  en: "About"    }, icon: User,       href: "#sobre-mi" },
+  { id: "projects", label: { es: "Proyectos", en: "Projects" }, icon: FolderOpen, href: "#projects" },
+  { id: "contact",  label: { es: "Contacto",  en: "Contact"  }, icon: Mail,       href: "#contact"  },
 ];
 
-export default function Navbar() {
+const switchLabel = { es: "View in English", en: "Ver en español" };
+
+export default function Navbar({ locale }: { locale: Locale }) {
+  const otherLocale: Locale = locale === "es" ? "en" : "es";
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
@@ -52,8 +56,9 @@ export default function Navbar() {
             : "gap-1 sm:gap-2 w-full max-w-2xl justify-center bg-white/[0.04] border border-white/[0.08] rounded-2xl px-2 sm:px-4 py-2 sm:py-3 backdrop-blur-md"
         }`}
       >
-        {navItems.map(({ id, label, icon: Icon, href }) => {
+        {navItems.map(({ id, label: labels, icon: Icon, href }) => {
           const isActive = active === id;
+          const label = labels[locale];
           return (
             <motion.a
               key={id}
@@ -96,6 +101,20 @@ export default function Navbar() {
             </motion.a>
           );
         })}
+
+        {/* Cambio de idioma — conserva la sección en la que está el usuario */}
+        <span className="mx-1 h-5 w-px shrink-0 bg-white/10" />
+        <a
+          href={`${homePath[otherLocale]}${active === "home" ? "" : `#${active}`}`}
+          hrefLang={otherLocale}
+          aria-label={switchLabel[locale]}
+          title={switchLabel[locale]}
+          className={`rounded-full text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-white transition-colors duration-200 ${
+            scrolled ? "px-3 py-2" : "px-3 sm:px-4 py-2.5"
+          }`}
+        >
+          {otherLocale}
+        </a>
       </motion.nav>
     </div>
   );

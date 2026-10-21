@@ -2,11 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import type { Locale } from "@/lib/i18n";
 
-const sentence =
-  "Del problema a la solución. Desarrollo software moderno y escalable para PyMEs que necesitan crecer — automatizando procesos, integrando inteligencia artificial y tomando decisiones basadas en datos, con React, .NET y Python.";
-
-const words = sentence.split(" ");
+const sentences = {
+  es: "Del problema a la solución. Desarrollo software moderno y escalable para PyMEs que necesitan crecer — automatizando procesos, integrando inteligencia artificial y tomando decisiones basadas en datos, con React, .NET y Python.",
+  en: "From problem to solution. I build modern, scalable software for SMBs that need to grow — automating processes, integrating artificial intelligence and making data-driven decisions, with React, .NET and Python.",
+};
 
 function Word({
   word,
@@ -25,7 +26,8 @@ function Word({
   );
 }
 
-export default function ScrollRevealText() {
+export default function ScrollRevealText({ locale }: { locale: Locale }) {
+  const words = sentences[locale].split(" ");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
