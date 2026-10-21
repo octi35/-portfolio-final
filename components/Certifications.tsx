@@ -3,8 +3,16 @@
 import { motion } from "framer-motion";
 import { Award } from "lucide-react";
 import { certifications } from "@/lib/certifications";
+import { localize, type Locale } from "@/lib/i18n";
 
-export default function Certifications() {
+const copy = {
+  es: { eyebrow: "Formación", title: "Certificaciones" },
+  en: { eyebrow: "Training", title: "Certifications" },
+};
+
+export default function Certifications({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
     <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -17,7 +25,7 @@ export default function Certifications() {
             viewport={{ once: true }}
             className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
           >
-            Formación
+            {t.eyebrow}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 28 }}
@@ -26,7 +34,7 @@ export default function Certifications() {
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
           >
-            Certificaciones
+            {t.title}
           </motion.h2>
         </div>
 
@@ -63,19 +71,19 @@ export default function Certifications() {
               {/* Title + issuer */}
               <div className="relative mb-3">
                 <h3 className="text-lg font-semibold text-white leading-snug">
-                  {cert.title}
+                  {localize(cert.title, locale)}
                 </h3>
-                <p className="text-sm text-gray-500 mt-0.5">{cert.issuer}</p>
+                <p className="text-sm text-gray-500 mt-0.5">{localize(cert.issuer, locale)}</p>
               </div>
 
               {/* Description */}
               <p className="relative text-sm leading-relaxed text-gray-400 mb-5">
-                {cert.description}
+                {cert.description[locale]}
               </p>
 
               {/* Skills */}
               <div className="relative flex flex-wrap gap-2">
-                {cert.skills.map((skill) => (
+                {cert.skills.map((s) => localize(s, locale)).map((skill) => (
                   <span
                     key={skill}
                     className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-gray-300"

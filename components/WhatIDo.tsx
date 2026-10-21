@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Code2, Bot, Building2, Lightbulb, ArrowRight } from "lucide-react";
+import { localize, type Locale, type Localized, type Translatable } from "@/lib/i18n";
 
 interface ServiceItem {
   id: number;
-  title: string;
+  title: Translatable;
   icon: React.ElementType;
-  tagline: string;
-  content: string[];
+  tagline: Localized;
+  content: Localized<string[]>;
 }
 
 const services: ServiceItem[] = [
@@ -17,49 +18,98 @@ const services: ServiceItem[] = [
     id: 1,
     title: "Web Development",
     icon: Code2,
-    tagline: "Aplicaciones web rápidas, escalables y a medida.",
-    content: [
-      "Desarrollo de aplicaciones web modernas con React y Next.js",
-      "Diseño e integración de APIs REST y bases de datos (SQL Server, PostgreSQL, MySQL)",
-      "Enfoque en rendimiento, UX y diseño responsive",
-    ],
+    tagline: {
+      es: "Aplicaciones web rápidas, escalables y a medida.",
+      en: "Fast, scalable, custom-built web applications.",
+    },
+    content: {
+      es: [
+        "Desarrollo de aplicaciones web modernas con React y Next.js",
+        "Diseño e integración de APIs REST y bases de datos (SQL Server, PostgreSQL, MySQL)",
+        "Enfoque en rendimiento, UX y diseño responsive",
+      ],
+      en: [
+        "Building modern web applications with React and Next.js",
+        "Designing and integrating REST APIs and databases (SQL Server, PostgreSQL, MySQL)",
+        "Focus on performance, UX and responsive design",
+      ],
+    },
   },
   {
     id: 2,
-    title: "Automatización & Dashboards",
+    title: { es: "Automatización & Dashboards", en: "Automation & Dashboards" },
     icon: Bot,
-    tagline: "Menos trabajo manual, mejores decisiones con datos.",
-    content: [
-      "Automatización de procesos con n8n e inteligencia artificial",
-      "Construcción de dashboards interactivos con Power BI",
-      "Integración de notificaciones y reportes automáticos para negocio",
-    ],
+    tagline: {
+      es: "Menos trabajo manual, mejores decisiones con datos.",
+      en: "Less manual work, better data-driven decisions.",
+    },
+    content: {
+      es: [
+        "Automatización de procesos con n8n e inteligencia artificial",
+        "Construcción de dashboards interactivos con Power BI",
+        "Integración de notificaciones y reportes automáticos para negocio",
+      ],
+      en: [
+        "Process automation with n8n and artificial intelligence",
+        "Building interactive dashboards with Power BI",
+        "Automated notifications and business reports",
+      ],
+    },
   },
   {
     id: 3,
-    title: "Sistemas de Gestión para PyMEs",
+    title: { es: "Sistemas de Gestión para PyMEs", en: "Management Systems for SMBs" },
     icon: Building2,
-    tagline: "CRM/ERP centralizados para operar todo en un lugar.",
-    content: [
-      "Diseño de soluciones tipo CRM/ERP para PyMEs",
-      "Módulos de ventas, inventario, reservas y finanzas",
-      "Centralización de comunicaciones en un inbox unificado (WhatsApp, Instagram, etc.)",
-    ],
+    tagline: {
+      es: "CRM/ERP centralizados para operar todo en un lugar.",
+      en: "Centralized CRM/ERP to run everything in one place.",
+    },
+    content: {
+      es: [
+        "Diseño de soluciones tipo CRM/ERP para PyMEs",
+        "Módulos de ventas, inventario, reservas y finanzas",
+        "Centralización de comunicaciones en un inbox unificado (WhatsApp, Instagram, etc.)",
+      ],
+      en: [
+        "Designing CRM/ERP-style solutions for SMBs",
+        "Sales, inventory, booking and finance modules",
+        "All communications centralized in a unified inbox (WhatsApp, Instagram, etc.)",
+      ],
+    },
   },
   {
     id: 4,
-    title: "Consultoría & Optimización de Procesos",
+    title: {
+      es: "Consultoría & Optimización de Procesos",
+      en: "Consulting & Process Optimization",
+    },
     icon: Lightbulb,
-    tagline: "Arquitecturas y procesos pensados para escalar.",
-    content: [
-      "Análisis y optimización de procesos empresariales",
-      "Consultoría tecnológica para transformación digital",
-      "Evaluación de arquitecturas y propuesta de mejoras escalables",
-    ],
+    tagline: {
+      es: "Arquitecturas y procesos pensados para escalar.",
+      en: "Architectures and processes designed to scale.",
+    },
+    content: {
+      es: [
+        "Análisis y optimización de procesos empresariales",
+        "Consultoría tecnológica para transformación digital",
+        "Evaluación de arquitecturas y propuesta de mejoras escalables",
+      ],
+      en: [
+        "Business process analysis and optimization",
+        "Technology consulting for digital transformation",
+        "Architecture reviews and proposals for scalable improvements",
+      ],
+    },
   },
 ];
 
-export default function WhatIDo() {
+const copy = {
+  es: { eyebrow: "Servicios", title: "¿Qué hago?" },
+  en: { eyebrow: "Services", title: "What I Do" },
+};
+
+export default function WhatIDo({ locale }: { locale: Locale }) {
+  const t = copy[locale];
   const [active, setActive] = useState(1);
   const [mobileOpen, setMobileOpen] = useState<number>(1);
   const current = services.find((s) => s.id === active)!;
@@ -77,7 +127,7 @@ export default function WhatIDo() {
             viewport={{ once: true }}
             className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
           >
-            Servicios
+            {t.eyebrow}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 28 }}
@@ -86,7 +136,7 @@ export default function WhatIDo() {
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
           >
-            ¿Qué hago?
+            {t.title}
           </motion.h2>
         </div>
 
@@ -119,7 +169,7 @@ export default function WhatIDo() {
                       isOpen ? "text-white" : "text-gray-400"
                     }`}
                   >
-                    {service.title}
+                    {localize(service.title, locale)}
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
@@ -141,9 +191,9 @@ export default function WhatIDo() {
                       className="overflow-hidden"
                     >
                       <div className="px-5 pb-5 pt-1">
-                        <p className="text-sm text-gray-400 mb-3">{service.tagline}</p>
+                        <p className="text-sm text-gray-400 mb-3">{service.tagline[locale]}</p>
                         <ul className="space-y-2.5">
-                          {service.content.map((item) => (
+                          {service.content[locale].map((item) => (
                             <li key={item} className="flex items-start gap-3 text-gray-300">
                               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
                               <span className="text-sm leading-relaxed">{item}</span>
@@ -194,7 +244,7 @@ export default function WhatIDo() {
                         isActive ? "text-white" : "text-gray-400"
                       }`}
                     >
-                      {service.title}
+                      {localize(service.title, locale)}
                     </span>
                     <ArrowRight
                       className={`h-4 w-4 transition-all duration-300 ${
@@ -228,11 +278,11 @@ export default function WhatIDo() {
                   <CurrentIcon className="h-7 w-7" />
                 </div>
 
-                <h3 className="text-2xl font-bold text-white">{current.title}</h3>
-                <p className="mt-2 text-gray-400">{current.tagline}</p>
+                <h3 className="text-2xl font-bold text-white">{localize(current.title, locale)}</h3>
+                <p className="mt-2 text-gray-400">{current.tagline[locale]}</p>
 
                 <ul className="mt-6 space-y-3">
-                  {current.content.map((item, idx) => (
+                  {current.content[locale].map((item, idx) => (
                     <motion.li
                       key={item}
                       initial={{ opacity: 0, x: -10 }}

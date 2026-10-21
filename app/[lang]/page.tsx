@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ScrollRevealText from "@/components/ScrollRevealText";
@@ -10,22 +11,30 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { isLocale } from "@/lib/i18n";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+
   return (
     <main className="min-h-screen bg-transparent">
-      <Navbar />
-      <Hero />
-      <ScrollRevealText />
-      <TechStack />
-      <WhatIDo />
-      <Timeline />
-      <Certifications />
-      <LanguagesSoftSkills />
-      <Projects />
-      <Contact />
+      <Navbar locale={lang} />
+      <Hero locale={lang} />
+      <ScrollRevealText locale={lang} />
+      <TechStack locale={lang} />
+      <WhatIDo locale={lang} />
+      <Timeline locale={lang} />
+      <Certifications locale={lang} />
+      <LanguagesSoftSkills locale={lang} />
+      <Projects locale={lang} />
+      <Contact locale={lang} />
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppButton locale={lang} />
     </main>
   );
 }

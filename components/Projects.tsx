@@ -4,22 +4,71 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X, ExternalLink } from "lucide-react";
 import { projects, type Project } from "@/lib/projects";
-import CaseStudies from "@/components/CaseStudies";
+import { localize, type Locale, type Translatable } from "@/lib/i18n";
+import CaseStudies, { RichText } from "@/components/CaseStudies";
 
-const subtitles: Record<number, string> = {
-  1: "Plataforma de Eventos · React & SQL",
-  2: "Sistema CRM/ERP · React, .NET & SQL Server",
-  3: "SaaS de atención al cliente · IA & Supabase",
+const subtitles: Record<number, Translatable> = {
+  1: { es: "Plataforma de Eventos · React & SQL", en: "Event Platform · React & SQL" },
+  2: { es: "Sistema CRM/ERP · React, .NET & SQL Server", en: "CRM/ERP System · React, .NET & SQL Server" },
+  3: { es: "SaaS de atención al cliente · IA & Supabase", en: "Customer service SaaS · AI & Supabase" },
   4: "Warehouse Management · React",
-  5: "Landing 3D · Three.js & React",
-  6: "Gestión hotelera · Next.js & Supabase",
-  7: "Sistema Contable · Automatización & APIs",
-  8: "Análisis de CVs con IA · Llama 3.3",
-  9: "Portfolio 3D · WebGL & GSAP",
-  10: "Showcase 3D · WebGL & Framer Motion",
+  5: { es: "Landing 3D · Three.js & React", en: "3D Landing Page · Three.js & React" },
+  6: { es: "Gestión hotelera · Next.js & Supabase", en: "Hotel management · Next.js & Supabase" },
+  7: { es: "Sistema Contable · Automatización & APIs", en: "Accounting System · Automation & APIs" },
+  8: { es: "Análisis de CVs con IA · Llama 3.3", en: "AI resume screening · Llama 3.3" },
+  9: { es: "Portfolio 3D · WebGL & GSAP", en: "3D Portfolio · WebGL & GSAP" },
+  10: { es: "Showcase 3D · WebGL & Framer Motion", en: "3D Showcase · WebGL & Framer Motion" },
 };
 
-export default function Projects() {
+const copy = {
+  es: {
+    titleTop: "Proyectos",
+    titleBottom: "Destacados",
+    viewAll: "Ver todo",
+    aboutTitle: "Sobre mi experiencia",
+    aboutIntro:
+      "Me especializo en llevar sistemas de gestión y plataformas web desde la idea hasta producción, con foco en un problema puntual: **modernizar procesos que las PyMEs todavía manejan a mano o con sistemas viejos** —desde reemplazar un sistema legacy de liquidación de sueldos hasta automatizar tareas repetitivas con IA. Trabajé con estudios contables, comercios, plataformas de eventos y reclutamiento, siempre encargándome del **ciclo completo: frontend, backend, base de datos y despliegue**.",
+    aboutStack:
+      "Stack principal: React, Node.js, .NET y SQL Server, con automatizaciones en n8n e integraciones de IA cuando el proyecto lo pide, trabajando con el modelo que mejor se adapte a cada caso en lugar de atarme a un proveedor. Priorizo soluciones que el cliente pueda mantener y entender, no solo que funcionen el día de la entrega.",
+    stats: [
+      { value: "10+", label: "Proyectos desarrollados" },
+      { value: "5+", label: "Clientes en distintos rubros" },
+      { value: "+3 años", label: "Experiencia en desarrollo" },
+      { value: "Legacy → Cloud", label: "De sistemas viejos a producción moderna" },
+    ],
+    close: "Cerrar",
+    deployed: "Desplegado",
+    inDevelopment: "En desarrollo",
+    techUsed: "Tecnologías usadas",
+    openProject: "Ingresar al proyecto",
+    comingSoon: "Próximamente disponible",
+  },
+  en: {
+    titleTop: "Featured",
+    titleBottom: "Projects",
+    viewAll: "View all",
+    aboutTitle: "About my experience",
+    aboutIntro:
+      "I specialize in taking management systems and web platforms from idea to production, with a focus on one specific problem: **modernizing processes that SMBs still handle by hand or with outdated systems** — from replacing a legacy payroll system to automating repetitive tasks with AI. I've worked with accounting firms, retailers, and event and recruiting platforms, always owning the **full cycle: frontend, backend, database and deployment**.",
+    aboutStack:
+      "Main stack: React, Node.js, .NET and SQL Server, with n8n automations and AI integrations when the project calls for them, using whichever model best fits each case instead of tying myself to a single provider. I prioritize solutions the client can maintain and understand, not just ones that work on delivery day.",
+    stats: [
+      { value: "10+", label: "Projects built" },
+      { value: "5+", label: "Clients across industries" },
+      { value: "3+ years", label: "Development experience" },
+      { value: "Legacy → Cloud", label: "From legacy systems to modern production" },
+    ],
+    close: "Close",
+    deployed: "Deployed",
+    inDevelopment: "In development",
+    techUsed: "Tech stack",
+    openProject: "Open project",
+    comingSoon: "Coming soon",
+  },
+};
+
+export default function Projects({ locale }: { locale: Locale }) {
+  const t = copy[locale];
   const [selected, setSelected] = useState<Project | null>(null);
 
   // Bloquear el scroll del body mientras el modal está abierto
@@ -52,7 +101,7 @@ export default function Projects() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight"
           >
-            Proyectos<br />Destacados
+            {t.titleTop}<br />{t.titleBottom}
           </motion.h2>
 
           <motion.a
@@ -65,7 +114,7 @@ export default function Projects() {
             viewport={{ once: true }}
             className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors mt-2 group"
           >
-            Ver todo
+            {t.viewAll}
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </motion.a>
         </div>
@@ -87,7 +136,7 @@ export default function Projects() {
               <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] aspect-[16/10] mb-4 border border-white/[0.06]">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={project.title[locale]}
                   className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-500 ease-out"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -100,10 +149,10 @@ export default function Projects() {
               <div className="flex items-start justify-between gap-4 px-1">
                 <div>
                   <h3 className="text-white font-semibold text-[17px] leading-snug group-hover:text-gray-200 transition-colors">
-                    {project.title.split("–")[0].trim()}
+                    {project.title[locale].split("–")[0].trim()}
                   </h3>
                   <p className="text-gray-500 text-sm mt-1">
-                    {subtitles[project.id] ?? project.title}
+                    {localize(subtitles[project.id] ?? project.title, locale)}
                   </p>
                 </div>
 
@@ -116,7 +165,7 @@ export default function Projects() {
         </div>
 
         {/* Case studies — el detrás de escena de los proyectos destacados */}
-        <CaseStudies />
+        <CaseStudies locale={locale} />
 
         {/* Resumen profesional para reclutadores */}
         <motion.div
@@ -127,43 +176,20 @@ export default function Projects() {
           className="mt-16 sm:mt-20 rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 sm:p-10 lg:p-12"
         >
           <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
-            Sobre mi experiencia
+            {t.aboutTitle}
           </h3>
 
           <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-5 max-w-3xl">
-            Me especializo en llevar sistemas de gestión y plataformas web
-            desde la idea hasta producción, con foco en un problema puntual:{" "}
-            <span className="text-white font-medium">
-              modernizar procesos que las PyMEs todavía manejan a mano o con
-              sistemas viejos
-            </span>{" "}
-            —desde reemplazar un sistema legacy de liquidación de sueldos
-            hasta automatizar tareas repetitivas con IA. Trabajé con estudios
-            contables, comercios, plataformas de eventos y reclutamiento,
-            siempre encargándome del{" "}
-            <span className="text-white font-medium">
-              ciclo completo: frontend, backend, base de datos y despliegue
-            </span>
-            .
+            <RichText text={t.aboutIntro} />
           </p>
 
           <p className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-4 max-w-3xl">
-            Stack principal: React, Node.js, .NET y SQL Server, con
-            automatizaciones en n8n e integraciones de IA cuando el proyecto
-            lo pide, trabajando con el modelo que mejor se adapte a cada caso
-            en lugar de atarme a un proveedor. Priorizo soluciones que el
-            cliente pueda mantener y entender, no solo que funcionen el día de
-            la entrega.
+            {t.aboutStack}
           </p>
 
           {/* Estadísticas */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-10 pt-8 border-t border-white/[0.08]">
-            {[
-              { value: "10+", label: "Proyectos desarrollados" },
-              { value: "5+", label: "Clientes en distintos rubros" },
-              { value: "+3 años", label: "Experiencia en desarrollo" },
-              { value: "Legacy → Cloud", label: "De sistemas viejos a producción moderna" },
-            ].map((stat) => (
+            {t.stats.map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl sm:text-3xl font-bold text-white">
                   {stat.value}
@@ -201,7 +227,7 @@ export default function Projects() {
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                aria-label="Cerrar"
+                aria-label={t.close}
                 className="absolute top-4 right-4 z-20 flex items-center justify-center w-9 h-9 rounded-full bg-black/40 text-gray-300 hover:bg-black/70 hover:text-white transition-colors"
               >
                 <X className="w-5 h-5" />
@@ -211,7 +237,7 @@ export default function Projects() {
               <div className="relative shrink-0 overflow-hidden bg-gradient-to-br from-[#181818] to-[#0e0e0e] aspect-[16/10] lg:aspect-auto lg:w-[52%] lg:h-auto flex items-center justify-center p-3 sm:p-4 lg:p-6 rounded-t-3xl lg:rounded-t-none lg:rounded-l-3xl border-b lg:border-b-0 lg:border-r border-white/[0.06]">
                 <img
                   src={selected.image}
-                  alt={selected.title}
+                  alt={selected.title[locale]}
                   className="max-w-full max-h-full object-contain rounded-lg shadow-2xl ring-1 ring-white/10"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -230,31 +256,31 @@ export default function Projects() {
                         : "bg-amber-500/15 text-amber-400"
                     }`}
                   >
-                    {selected.status === "Deployed" ? "Desplegado" : "En desarrollo"}
+                    {selected.status === "Deployed" ? t.deployed : t.inDevelopment}
                   </span>
                 </div>
 
                 <h3 className="text-2xl lg:text-[28px] font-bold text-white leading-tight">
-                  {selected.title}
+                  {selected.title[locale]}
                 </h3>
 
                 {/* Descripción */}
                 <p className="text-gray-400 text-[15px] leading-relaxed mt-4">
-                  {selected.description}
+                  {selected.description[locale]}
                 </p>
 
                 {/* Tecnologías */}
                 <div className="mt-6">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
-                    Tecnologías usadas
+                    {t.techUsed}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {selected.tech.split(",").map((t) => (
+                    {localize(selected.tech, locale).split(",").map((tech) => (
                       <span
-                        key={t}
+                        key={tech}
                         className="text-sm px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/10 text-gray-200"
                       >
-                        {t.trim()}
+                        {tech.trim()}
                       </span>
                     ))}
                   </div>
@@ -269,7 +295,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
                     >
-                      Ingresar al proyecto
+                      {t.openProject}
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   ) : (
@@ -279,7 +305,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-white font-medium hover:bg-white/[0.08] transition-colors"
                     >
-                      Próximamente disponible
+                      {t.comingSoon}
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   )}

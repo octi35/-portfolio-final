@@ -2,21 +2,50 @@
 
 import { motion } from "framer-motion";
 import { Languages, Sparkles } from "lucide-react";
+import type { Locale } from "@/lib/i18n";
 
-const languages = [
-  { name: "Español", level: "Nativo", value: 100 },
-  { name: "Inglés", level: "B2 / C1 — profesional", value: 85 },
-];
+const copy = {
+  es: {
+    eyebrow: "Cómo trabajo",
+    title: "Idiomas & Soft Skills",
+    languagesTitle: "Idiomas",
+    languagesIntro: "Trabajo cómodo en inglés con equipos y clientes del exterior.",
+    languages: [
+      { name: "Español", level: "Nativo", value: 100 },
+      { name: "Inglés", level: "B2 / C1 — profesional", value: 85 },
+    ],
+    softSkillsIntro: "Más de 3 años trabajando en remoto con equipos distribuidos y ágiles.",
+    softSkills: [
+      "Autonomía & proactividad",
+      "Comunicación técnica",
+      "Adaptabilidad",
+      "Resolución de problemas",
+      "Trabajo en equipo remoto",
+    ],
+  },
+  en: {
+    eyebrow: "How I work",
+    title: "Languages & Soft Skills",
+    languagesTitle: "Languages",
+    languagesIntro: "Comfortable working in English with international teams and clients.",
+    languages: [
+      { name: "Spanish", level: "Native", value: 100 },
+      { name: "English", level: "B2 / C1 — professional", value: 85 },
+    ],
+    softSkillsIntro: "3+ years working remotely with distributed, agile teams.",
+    softSkills: [
+      "Autonomy & proactivity",
+      "Technical communication",
+      "Adaptability",
+      "Problem solving",
+      "Remote teamwork",
+    ],
+  },
+};
 
-const softSkills = [
-  "Autonomía & proactividad",
-  "Comunicación técnica",
-  "Adaptabilidad",
-  "Resolución de problemas",
-  "Trabajo en equipo remoto",
-];
+export default function LanguagesSoftSkills({ locale }: { locale: Locale }) {
+  const t = copy[locale];
 
-export default function LanguagesSoftSkills() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -29,7 +58,7 @@ export default function LanguagesSoftSkills() {
             viewport={{ once: true }}
             className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
           >
-            Cómo trabajo
+            {t.eyebrow}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 28 }}
@@ -38,7 +67,7 @@ export default function LanguagesSoftSkills() {
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
           >
-            Idiomas & Soft Skills
+            {t.title}
           </motion.h2>
         </div>
 
@@ -57,13 +86,13 @@ export default function LanguagesSoftSkills() {
               <Languages className="h-5 w-5" />
             </div>
 
-            <h3 className="text-lg font-semibold text-white">Idiomas</h3>
+            <h3 className="text-lg font-semibold text-white">{t.languagesTitle}</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Trabajo cómodo en inglés con equipos y clientes del exterior.
+              {t.languagesIntro}
             </p>
 
             <div className="mt-6 space-y-5">
-              {languages.map((lang, idx) => (
+              {t.languages.map((lang, idx) => (
                 <div key={lang.name}>
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm font-medium text-white">{lang.name}</span>
@@ -99,11 +128,11 @@ export default function LanguagesSoftSkills() {
 
             <h3 className="text-lg font-semibold text-white">Soft Skills</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Más de 3 años trabajando en remoto con equipos distribuidos y ágiles.
+              {t.softSkillsIntro}
             </p>
 
             <ul className="mt-6 space-y-3">
-              {softSkills.map((skill, idx) => (
+              {t.softSkills.map((skill, idx) => (
                 <motion.li
                   key={skill}
                   initial={{ opacity: 0, x: -10 }}

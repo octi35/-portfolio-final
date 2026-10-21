@@ -92,8 +92,9 @@ pnpm start
 ```
 .
 ├── app/
-│   ├── layout.tsx          # Layout principal
-│   ├── page.tsx            # Página principal
+│   ├── [lang]/
+│   │   ├── layout.tsx      # Layout principal (lang y metadata por idioma)
+│   │   └── page.tsx        # Página principal
 │   └── globals.css         # Estilos globales
 ├── components/
 │   ├── Navbar.tsx          # Barra de navegación
@@ -104,6 +105,7 @@ pnpm start
 │   ├── Contact.tsx         # Formulario de contacto
 │   └── Footer.tsx          # Footer
 ├── lib/
+│   ├── i18n.ts             # Idiomas disponibles y helpers de traducción
 │   └── projects.ts         # Datos de proyectos
 ├── public/                 # Archivos estáticos
 ├── package.json
@@ -111,6 +113,22 @@ pnpm start
 ├── tailwind.config.ts
 └── next.config.mjs
 ```
+
+## 🌍 Idiomas
+
+El portfolio está en español e inglés:
+
+- **Español:** `/` (la raíz se reescribe internamente a `/es` en `next.config.mjs`)
+- **Inglés:** `/en`
+
+El botón `EN` / `ES` del navbar cambia de idioma manteniendo la sección actual.
+
+Cada texto visible tiene sus dos versiones una al lado de la otra:
+
+- **Textos de la interfaz** (títulos, botones, formulario): objeto `copy` con `es` y `en` al inicio de cada componente.
+- **Contenido** (`lib/projects.ts`, `lib/timeline.ts`, `lib/certifications.ts`, `lib/caseStudies.ts`): los campos de texto son `{ es: "...", en: "..." }`. Los valores que no cambian entre idiomas (nombres, tecnologías, años, URLs) se escriben una sola vez como string.
+
+TypeScript marca un error si a un texto traducible le falta alguno de los dos idiomas.
 
 ## ✏️ Personalización
 
@@ -122,8 +140,8 @@ Edita el archivo `lib/projects.ts` para agregar o modificar proyectos:
 export const projects: Project[] = [
   {
     id: 1,
-    title: "Nombre del Proyecto",
-    description: "Descripción del proyecto...",
+    title: { es: "Nombre del Proyecto", en: "Project Name" },
+    description: { es: "Descripción del proyecto...", en: "Project description..." },
     status: "Deployed" | "In development",
     tech: "Tecnologías utilizadas",
     image: "gradient-1",

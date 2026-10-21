@@ -2,10 +2,22 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import type { Locale } from "@/lib/i18n";
 
-const WhatsAppButton = () => {
+const copy = {
+  es: {
+    message: "Hola Octavio! Vi tu portfolio y me gustaría contactarte.",
+    label: "Contactar por WhatsApp",
+  },
+  en: {
+    message: "Hi Octavio! I saw your portfolio and would like to get in touch.",
+    label: "Contact via WhatsApp",
+  },
+};
+
+const WhatsAppButton = ({ locale }: { locale: Locale }) => {
   const phoneNumber = "5493512294285"; // +54 9 3512294285
-  const message = "Hola Octavio! Vi tu portfolio y me gustaría contactarte.";
+  const message = copy[locale].message;
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -19,7 +31,7 @@ const WhatsAppButton = () => {
       transition={{ delay: 1, duration: 0.3 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      aria-label="Contactar por WhatsApp"
+      aria-label={copy[locale].label}
     >
       <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
       

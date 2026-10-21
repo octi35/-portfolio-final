@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import dynamic from "next/dynamic";
+import type { Locale } from "@/lib/i18n";
 
 const Scene3D = dynamic(() => import("./Scene3D"), { ssr: false });
 
@@ -12,7 +13,26 @@ const socialLinks = [
   { name: "Email",    icon: Mail,     href: "mailto:octifaki@gmail.com" },
 ];
 
-export default function Hero() {
+const copy = {
+  es: {
+    greeting: "Hola, soy Octavio Fakiani",
+    intro:
+      "Full Stack Developer con más de 3 años construyendo aplicaciones web a medida, APIs REST e integraciones de IA con React, Node.js y C#/.NET sobre SQL Server y PostgreSQL. Experiencia remota con equipos de Estados Unidos e India.",
+    badges: ["Inglés B2 / C1", "Remoto — US & Asia", "Disponible para freelance"],
+    downloadCv: "Descargar CV",
+  },
+  en: {
+    greeting: "Hi, I'm Octavio Fakiani",
+    intro:
+      "Full Stack Developer with 3+ years building custom web applications, REST APIs and AI integrations with React, Node.js and C#/.NET on SQL Server and PostgreSQL. Remote experience with teams in the United States and India.",
+    badges: ["English B2 / C1", "Remote — US & Asia", "Available for freelance"],
+    downloadCv: "Download CV",
+  },
+};
+
+export default function Hero({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
     <section
       id="home"
@@ -33,7 +53,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-gray-400 text-sm font-medium tracking-[0.2em] uppercase"
             >
-              Hola, soy Octavio Fakiani
+              {t.greeting}
             </motion.p>
 
             <motion.h1
@@ -55,10 +75,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-lg"
             >
-              Full Stack Developer con más de 3 años construyendo aplicaciones web
-              a medida, APIs REST e integraciones de IA con React, Node.js y
-              C#/.NET sobre SQL Server y PostgreSQL. Experiencia remota con equipos
-              de Estados Unidos e India.
+              {t.intro}
             </motion.p>
 
             <motion.div
@@ -67,7 +84,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.48 }}
               className="flex flex-wrap gap-2"
             >
-              {["Inglés B2 / C1", "Remoto — US & Asia", "Disponible para freelance"].map(
+              {t.badges.map(
                 (badge) => (
                   <span
                     key={badge}
@@ -106,10 +123,10 @@ export default function Hero() {
                 className="px-4 py-3 rounded-lg bg-white text-black font-medium text-sm flex items-center gap-2 transition-all duration-300 hover:bg-gray-200"
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="Descargar CV"
+                aria-label={t.downloadCv}
               >
                 <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Descargar CV</span>
+                <span>{t.downloadCv}</span>
               </motion.a>
             </motion.div>
           </motion.div>

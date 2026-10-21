@@ -4,9 +4,49 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { caseStudies, type CaseStudy } from "@/lib/caseStudies";
+import type { Locale } from "@/lib/i18n";
+
+const copy = {
+  es: {
+    eyebrow: "Case studies",
+    title: "Detrás de los proyectos",
+    intro:
+      "El problema real del cliente, las decisiones que tomé antes de escribir una línea de código y qué pasó después. Tocá cada paso para desplegarlo.",
+    liveProject: "Ver el proyecto en vivo",
+    stepByStep: "El proceso, paso a paso",
+    expandAll: "Abrir todo",
+    collapseAll: "Cerrar todo",
+    problem: "El problema",
+    thinking: "Lo que pensé antes de programar",
+    options: "Opciones que consideré",
+    discarded: "Por qué descarté las otras",
+    tradeoff: "El trade-off que acepté a propósito",
+    build: "Cómo lo construí",
+    obstacle: "El obstáculo real",
+    result: "Resultado",
+  },
+  en: {
+    eyebrow: "Case studies",
+    title: "Behind the projects",
+    intro:
+      "The client's real problem, the decisions I made before writing a single line of code, and what happened next. Tap each step to expand it.",
+    liveProject: "See the live project",
+    stepByStep: "The process, step by step",
+    expandAll: "Expand all",
+    collapseAll: "Collapse all",
+    problem: "The problem",
+    thinking: "What I thought through before coding",
+    options: "Options I considered",
+    discarded: "Why I ruled out the others",
+    tradeoff: "The trade-off I accepted on purpose",
+    build: "How I built it",
+    obstacle: "The real obstacle",
+    result: "Outcome",
+  },
+};
 
 /** Resalta las frases marcadas con **dobles asteriscos** con el estilo del sitio. */
-function RichText({ text }: { text: string }) {
+export function RichText({ text }: { text: string }) {
   return (
     <>
       {text.split(/\*\*(.+?)\*\*/).map((part, i) =>
@@ -90,7 +130,9 @@ function Step({
 }
 
 /** Una tarjeta por proyecto. El estado del acordeón se reinicia al cambiar de proyecto. */
-function CaseStudyCard({ study }: { study: CaseStudy }) {
+function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: Locale }) {
+  const t = copy[locale];
+  const content = study.content[locale];
   const [openSteps, setOpenSteps] = useState<number[]>([]);
 
   const toggleStep = (i: number) =>
@@ -100,23 +142,23 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
   const steps = [
     {
-      title: "El problema",
+      title: t.problem,
       content: (
         <p className={bodyText}>
-          <RichText text={study.problem} />
+          <RichText text={content.problem} />
         </p>
       ),
     },
     {
-      title: "Lo que pensé antes de programar",
+      title: t.thinking,
       content: (
         <div className="space-y-6">
           <div>
             <h5 className="text-white text-[15px] font-semibold mb-3">
-              Opciones que consideré
+              {t.options}
             </h5>
             <ul className="space-y-3">
-              {study.thinking.options.map((opt) => (
+              {content.thinking.options.map((opt) => (
                 <li key={opt} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
                   <span className={bodyText}>
@@ -129,10 +171,10 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
           <div className="border-t border-white/[0.07] pt-5">
             <h5 className="text-white text-[15px] font-semibold mb-3">
-              Por qué descarté las otras
+              {t.discarded}
             </h5>
             <ul className="space-y-4">
-              {study.thinking.discarded.map((item) => (
+              {content.thinking.discarded.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
                   <span className={bodyText}>
@@ -145,20 +187,20 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
           <div className="border-t border-white/[0.07] pt-5">
             <h5 className="text-white text-[15px] font-semibold mb-3">
-              El trade-off que acepté a propósito
+              {t.tradeoff}
             </h5>
             <p className={bodyText}>
-              <RichText text={study.thinking.tradeoff} />
+              <RichText text={content.thinking.tradeoff} />
             </p>
           </div>
         </div>
       ),
     },
     {
-      title: "Cómo lo construí",
+      title: t.build,
       content: (
         <div className="space-y-5">
-          {study.build.map((item) => (
+          {content.build.map((item) => (
             <div key={item.title}>
               <h5 className="text-white text-[15px] font-semibold mb-2">
                 {item.title}
@@ -172,18 +214,18 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       ),
     },
     {
-      title: "El obstáculo real",
+      title: t.obstacle,
       content: (
         <p className={bodyText}>
-          <RichText text={study.obstacle} />
+          <RichText text={content.obstacle} />
         </p>
       ),
     },
     {
-      title: "Resultado",
+      title: t.result,
       content: (
         <p className={bodyText}>
-          <RichText text={study.result} />
+          <RichText text={content.result} />
         </p>
       ),
     },
@@ -214,7 +256,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
           <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">
             {study.name}
           </h4>
-          <p className={`${bodyText} mt-3`}>{study.oneLiner}</p>
+          <p className={`${bodyText} mt-3`}>{content.oneLiner}</p>
 
           <div className="flex flex-wrap gap-2 mt-5">
             {study.stack.map((tech) => (
@@ -234,7 +276,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors mt-5 group w-fit"
             >
-              Ver el proyecto en vivo
+              {t.liveProject}
               <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </a>
           )}
@@ -245,7 +287,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       <div className="border-t border-white/[0.08]">
         <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-white/[0.06]">
           <span className="text-xs text-gray-500">
-            El proceso, paso a paso
+            {t.stepByStep}
           </span>
           <button
             type="button"
@@ -256,7 +298,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             }
             className="text-xs text-gray-500 hover:text-white transition-colors"
           >
-            {openSteps.length === steps.length ? "Cerrar todo" : "Abrir todo"}
+            {openSteps.length === steps.length ? t.collapseAll : t.expandAll}
           </button>
         </div>
 
@@ -278,7 +320,8 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
   );
 }
 
-export default function CaseStudies() {
+export default function CaseStudies({ locale }: { locale: Locale }) {
+  const t = copy[locale];
   const [active, setActive] = useState(caseStudies[0].id);
   const study = caseStudies.find((c) => c.id === active) ?? caseStudies[0];
 
@@ -293,7 +336,7 @@ export default function CaseStudies() {
           viewport={{ once: true }}
           className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-3"
         >
-          Case studies
+          {t.eyebrow}
         </motion.p>
         <motion.h3
           initial={{ opacity: 0, y: 28 }}
@@ -302,7 +345,7 @@ export default function CaseStudies() {
           viewport={{ once: true }}
           className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight"
         >
-          Detrás de los proyectos
+          {t.title}
         </motion.h3>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -311,9 +354,7 @@ export default function CaseStudies() {
           viewport={{ once: true }}
           className="text-gray-400 text-[15px] sm:text-base leading-relaxed mt-4 max-w-3xl"
         >
-          El problema real del cliente, las decisiones que tomé antes de
-          escribir una línea de código y qué pasó después. Tocá cada paso para
-          desplegarlo.
+          {t.intro}
         </motion.p>
       </div>
 
@@ -347,7 +388,7 @@ export default function CaseStudies() {
       )}
 
       <AnimatePresence mode="wait">
-        <CaseStudyCard key={study.id} study={study} />
+        <CaseStudyCard key={study.id} study={study} locale={locale} />
       </AnimatePresence>
     </div>
   );
