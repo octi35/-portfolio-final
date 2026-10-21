@@ -20,6 +20,7 @@ const copy = {
       "Full Stack Developer con más de 3 años construyendo aplicaciones web a medida, APIs REST e integraciones de IA con React, Node.js y C#/.NET sobre SQL Server y PostgreSQL. Experiencia remota con equipos de Estados Unidos e India.",
     badges: ["Inglés B2 / C1", "Remoto — US & Asia", "Disponible para freelance"],
     downloadCv: "Descargar CV",
+    cvPath: "/documents/CV_Octavio_Fakiani_v3.docx",
   },
   en: {
     greeting: "Hi, I'm Octavio Fakiani",
@@ -27,6 +28,7 @@ const copy = {
       "Full Stack Developer with 3+ years building custom web applications, REST APIs and AI integrations with React, Node.js and C#/.NET on SQL Server and PostgreSQL. Remote experience with teams in the United States and India.",
     badges: ["English B2 / C1", "Remote — US & Asia", "Available for freelance"],
     downloadCv: "Download CV",
+    cvPath: "/documents/CV_Octavio_Fakiani_v3_EN.docx",
   },
 };
 
@@ -118,7 +120,7 @@ export default function Hero({ locale }: { locale: Locale }) {
               ))}
 
               <motion.a
-                href="/documents/CV_Octavio_Fakiani_v3.docx"
+                href={t.cvPath}
                 download
                 className="px-4 py-3 rounded-lg bg-white text-black font-medium text-sm flex items-center gap-2 transition-all duration-300 hover:bg-gray-200"
                 whileHover={{ scale: 1.05, y: -3 }}
